@@ -1,0 +1,38 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+# Step 1: Generate a sample dataset using numpy
+np.random.seed(42)  # For reproducibility
+data = {
+    "Category": ["A", "B", "C", "D", "E"],
+    "Values": np.random.randint(10, 100, size=5)
+}
+
+# Step 2: Load the dataset into a pandas DataFrame
+df = pd.DataFrame(data)
+
+# Step 3: Display basic statistics using pandas
+print("Dataset Summary:")
+print(df.describe())
+
+# Step 4: Calculate mean and standard deviation using numpy
+mean_value = np.mean(df["Values"])
+std_dev = np.std(df["Values"])
+print(f"\nMean of Values: {mean_value}")
+print(f"Standard Deviation of Values: {std_dev}")
+
+# Step 5: Perform a statistical test (e.g., z-score normalization) using scipy
+df["Z-Score"] = stats.zscore(df["Values"])
+print("\nDataset with Z-Score Normalization:")
+print(df)
+
+# Step 6: Plot the data using matplotlib
+plt.figure(figsize=(8, 6))
+plt.bar(df["Category"], df["Values"], color="skyblue")
+plt.title("Category vs. Values")
+plt.xlabel("Category")
+plt.ylabel("Values")
+plt.grid(axis="y", linestyle="--", alpha=0.7)
+plt.show()

@@ -1,0 +1,79 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import ttest_ind
+
+# Module 1: Data Loader
+def load_data(file_path):
+    """Load data from a CSV file into a pandas DataFrame."""
+    try:
+        data = pd.read_csv(file_path)
+        return data
+    except FileNotFoundError:
+        print("File not found.")
+        return None
+
+# Module 2: Data Processor
+def calculate_averages(data):
+    """Calculate average scores for each subject."""
+    averages = {
+        "Math": np.mean(data['Math']),
+        "Science": np.mean(data['Science']),
+        "English": np.mean(data['English'])
+    }
+    return averages
+
+def get_student_scores(data, student_name):
+    """Get scores for a specific student."""
+    student = data[data['Name'] == student_name]
+    if not student.empty:
+        return student[['Math', 'Science', 'English']].values[0]
+    else:
+        print("Student not found.")
+        return None
+
+# Module 3: Data Visualizer
+def plot_averages(averages):
+    """Plot a bar chart of average scores."""
+    subjects = list(averages.keys())
+    scores = list(averages.values())
+
+    plt.bar(subjects, scores, color=['blue', 'green', 'red'])
+    plt.xlabel('Subjects')
+    plt.ylabel('Average Score')
+    plt.title('Average Scores by Subject')
+    plt.show()
+
+# Module 4: Statistical Analysis
+def ttest_between_subjects(data, subject1, subject2):
+    """Perform t-test between two subjects to check if their scores are significantly different."""
+    scores1 = data[subject1]
+    scores2 = data[subject2]
+    t_stat, p_value = ttest_ind(scores1, scores2)
+    return t_stat, p_value
+
+# Main Program
+if __name__ == "__main__":
+    # Load data
+    data = load_data('student_scores.csv')
+    if data is not None:
+        # Calculate averages
+        averages = calculate_averages(data)
+        print("Average Scores:", averages)
+
+        # Plot averages
+        plot_averages(averages)
+
+        # Get scores for a specific student
+        student_name = "Alice"
+        scores = get_student_scores(data, student_name)
+        if scores is not None:
+            print(f"Scores for {student_name}: Math={scores[0]}, Science={scores[1]}, English={scores[2]}")
+
+        # Perform t-test between Math and Science scores
+        t_stat, p_value = ttest_between_subjects(data, 'Math', 'Science')
+        print(f"T-test between Math and Science: t_stat={t_stat}, p_value={p_value}")
+        if p_value < 0.05:
+            print("There is a statistically significant difference between Math and Science scores.")
+        else:
+            print("No statistically significant difference between Math and Science scores.")

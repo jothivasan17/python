@@ -1,0 +1,6 @@
+def is_armstrong(x):
+    n = len(str(x))
+    return x == sum(int(digit) ** n for digit in str(x))
+
+print(is_armstrong(153))  
+print(is_armstrong(1253))

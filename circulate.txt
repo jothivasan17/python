@@ -1,0 +1,6 @@
+
+no_of_terms = int(input("Enter number of values: "))
+list1 = [int(input("Enter integer: "))
+for _ in range(no_of_terms)]
+print("Circulating the elements of list", list1); [list1.append(list1.pop(0)) or print(list1) for _ in range(no_of_terms)]
+

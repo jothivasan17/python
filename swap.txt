@@ -1,0 +1,12 @@
+print("Swapping using temporary variable")  
+a = int(input("a = "))  
+b = int(input("b = ")) 
+print("Before Swapping") 
+print("a = ", a) 
+print("b = ", b) 
+c = a 
+a = b  
+b = c 
+print("After Swapping") 
+print("a = ", a) 
+print("b = ", b) 

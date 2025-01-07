@@ -1,0 +1,65 @@
+import os
+from datetime import datetime
+
+# Define log file name
+LOG_FILE = "system_logs.txt"
+
+def write_log(message):
+    """Append a log entry with a timestamp to the log file."""
+    with open(LOG_FILE, "a") as log_file:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log_file.write(f"{timestamp} - {message}\n")
+    print("Log written successfully.")
+
+def read_logs():
+    """Read and print all log entries from the log file."""
+    if os.path.exists(LOG_FILE):
+        with open(LOG_FILE, "r") as log_file:
+            logs = log_file.readlines()
+            for log in logs:
+                print(log.strip())
+    else:
+        print("Log file does not exist.")
+
+def analyze_logs_by_date(start_date=None, end_date=None):
+    """Analyze logs within a specified date range."""
+    if not os.path.exists(LOG_FILE):
+        print("Log file does not exist.")
+        return
+
+    # Convert start and end date to datetime objects if provided
+    start_date = datetime.strptime(start_date, "%Y-%m-%d") if start_date else None
+    end_date = datetime.strptime(end_date, "%Y-%m-%d") if end_date else None
+
+    with open(LOG_FILE, "r") as log_file:
+        logs = log_file.readlines()
+        # Filter and count logs within date range
+        filtered_logs = []
+        for log in logs:
+            log_timestamp = datetime.strptime(log.split(" - ")[0], "%Y-%m-%d %H:%M:%S")
+            if (not start_date or log_timestamp >= start_date) and (not end_date or log_timestamp <= end_date):
+                filtered_logs.append(log.strip())
+
+        # Print analysis results
+        print(f"\nTotal Logs: {len(filtered_logs)}")
+        if filtered_logs:
+            print("\nFiltered Logs:")
+            for log in filtered_logs:
+                print(log)
+        else:
+            print("No logs found within the specified date range.")
+
+if __name__ == "__main__":
+    # Writing logs
+    write_log("System started.")
+    write_log("User login successful.")
+    write_log("File downloaded successfully.")
+    write_log("Error encountered while accessing database.")
+
+    # Reading all logs
+    print("\n--- All Logs ---")
+    read_logs()
+
+    # Analyzing logs within a specific date range
+    print("\n--- Logs from 2024-11-01 to 2024-11-04 ---")
+    analyze_logs_by_date("2024-11-01", "2024-11-04")

@@ -1,0 +1,37 @@
+ 
+print('list is created in the name:list') 
+list=[‘p’,’e’,’r’,’m’,’i’,’t’] 
+print('list created',list) 
+print(“list indexing”,list[0]) 
+print(“list negative indexing”,list[-1]) 
+print(“list slicing”,list[1:4]) 
+list=[‘p’,’e’,’r’,’m’,’i’,’t’]
+print("Given list",list) 
+list[0]=2 
+print("List Changing",list) 
+list[1:4]=[1,2,3] 
+print("List Changing",list) 
+ 
+list = 
+['p','e','r','m','i','t'] 
+print("Given list",list) 
+list[0]=2 
+print("List Changing",list) 
+list[1:4]=[1,2,3] 
+print("List Changing",list) 
+list = 
+['p','e','r','m','i','t'] 
+ 
+print("Given list",list) 
+ 
+list.append(['add','sub']) 
+print("List appending",list) 
+list = ['p','e','r','m','i','t' ] 
+print("Given list",list) 
+list.remove('p') 
+print("List Removing",list) 
+list = ['p','e','r','m','i','t'] 
+print("Given list",list) 
+list[2:5] = [] 
+print("List Delete",list) 
+ 

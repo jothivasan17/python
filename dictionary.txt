@@ -1,0 +1,24 @@
+phonebook = {}
+def add():
+    name = input("Enter name: ")
+    number = input("Enter phone number: ")
+    phonebook[name] = number
+def search():
+    name = input("Enter name to search: ")
+    if name in phonebook:
+        print("Phone number:", phonebook[name])
+    else:
+        print("Entry not found!")
+while True:
+    print("1. Add Entry")
+    print("2. Search Entry")
+    print("3. Exit")
+    choice = input("Enter your choice: ")
+    if choice == "1":
+        add()
+    elif choice == "2":
+        search()
+    elif choice == "3":
+        break
+    else:
+        print("Invalid choice. Please try again.")
